@@ -1,7 +1,6 @@
 name := "sbt2-compat"
 organization := "com.github.sbt"
-version := "0.1.0-SNAPSHOT"
-description := "A compatibility library; provides a unified API for sbt plugins cross-building for sbt 1.x and sbt 2.x"
+description := "A compatibility plugin; provides a unified API for sbt plugins cross-building for sbt 1.x and sbt 2.x"
 
 def scala212 = "2.12.20"
 def scala3 = "3.7.3"
@@ -23,3 +22,19 @@ Compile / scalacOptions ++= {
     case _      => Seq("-feature", "-unchecked")
   }
 }
+
+// Release configuration
+publishMavenStyle := true
+licenses := Seq(License.Apache2)
+homepage := Some(url("https://github.com/sbt/sbt2-compat"))
+scmInfo := Some(
+  ScmInfo(url("https://github.com/sbt/sbt2-compat"), "scm:git@github.com:sbt/sbt2-compat.git")
+)
+developers := List(
+  Developer(
+    id = "anatoliykmetyuk",
+    name = "Anatolii Kmetiuk",
+    email = "anatoliikmt@proton.me",
+    url = url("https://github.com/anatoliykmetyuk")
+  )
+)
