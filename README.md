@@ -26,7 +26,7 @@ crossScalaVersions := Seq("3.7.3", "2.12.20")
 (pluginCrossBuild / sbtVersion) := {
   scalaBinaryVersion.value match {
     case "2.12" => "1.5.8"
-    case _      => "2.0.0-RC7"
+    case _      => "2.0.0-RC9"
   }
 }
 ```
@@ -146,7 +146,7 @@ import SbtCompat.{FileRef, toFile, parseModuleIDStrAttribute, ...}
 
 ### sbt 2 disk cache and empty jars
 
-sbt 2.0.0-RC7 aggressively caches compilation results. When the disk cache hits, class files may not be written to the local `classes/` directory, causing `packageBin` to produce empty jars when using `publishLocal`. Workaround: invalidate the cache by making a trivial source change, or delete the `target/` directory and restart sbt.
+sbt 2.0.0-RC9 aggressively caches compilation results. When the disk cache hits, class files may not be written to the local `classes/` directory, causing `packageBin` to produce empty jars when using `publishLocal`. Workaround: invalidate the cache by making a trivial source change, or delete the `target/` directory and restart sbt.
 
 ## Design
 
@@ -163,7 +163,7 @@ The plugin follows the same pattern as [sbt-compat](https://github.com/dwijnand/
 
 ```
 build.sbt
-project/build.properties                        # sbt 2.0.0-RC7
+project/build.properties                        # sbt 2.0.0-RC9
 src/main/scala-2.12/sbtcompat/PluginCompat.scala # sbt 1 — workhorse
 src/main/scala-3/sbtcompat/PluginCompat.scala    # sbt 2 — stub
 ```
