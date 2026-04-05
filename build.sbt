@@ -3,7 +3,7 @@ organization := "com.github.sbt"
 description := "A compatibility plugin; provides a unified API for sbt plugins cross-building for sbt 1.x and sbt 2.x"
 
 def scala212 = "2.12.21"
-def scala3 = "3.8.1"
+def scala3 = "3.8.2"
 scalaVersion := scala3
 crossScalaVersions := Seq(scala3, scala212)
 
@@ -12,7 +12,7 @@ enablePlugins(SbtPlugin)
 (pluginCrossBuild / sbtVersion) := {
   scalaBinaryVersion.value match {
     case "2.12" => "1.5.8"
-    case _      => "2.0.0-RC9"
+    case _      => "2.0.0-RC10"
   }
 }
 
