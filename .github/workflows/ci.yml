@@ -21,4 +21,4 @@ jobs:
       - uses: sbt/setup-sbt@v1
 
       - name: Cross-compile
-        run: sbt +compile
+        run: sbt "+compile ; +mimaReportBinaryIssues"
