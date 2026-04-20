@@ -21,12 +21,12 @@ addSbtPlugin("com.github.sbt" % "sbt2-compat" % "<version>")
 Your plugin must be cross-built for both sbt 1 and sbt 2. The standard pattern is:
 
 ```scala
-crossScalaVersions := Seq("3.7.3", "2.12.20")
+crossScalaVersions := Seq("3.8.2", "2.12.20")
 
 (pluginCrossBuild / sbtVersion) := {
   scalaBinaryVersion.value match {
     case "2.12" => "1.5.8"
-    case _      => "2.0.0-RC10"
+    case _      => "2.0.0-RC12"
   }
 }
 ```
