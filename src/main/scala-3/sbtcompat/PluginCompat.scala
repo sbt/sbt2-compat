@@ -107,8 +107,9 @@ object PluginCompat:
     a.put(StringAttributeKey(key.label), value.map(_.getAbsolutePath).mkString(FilePathSeparator))
 
   def attributedGetFiles[T](a: Attributed[T], key: AttributeKey[Seq[File]]): Option[Seq[File]] =
-    a.get(StringAttributeKey(key.label)).map: s =>
-      if s.isEmpty then Nil else s.split(FilePathSeparator).toSeq.map(new File(_))
+    a.get(StringAttributeKey(key.label))
+      .map: s =>
+        if s.isEmpty then Nil else s.split(FilePathSeparator).toSeq.map(new File(_))
 
   def attributedPutValue[T, V](a: Attributed[T], key: AttributeKey[V], value: V): Attributed[T] =
     a.put(StringAttributeKey(key.label), value.toString)
