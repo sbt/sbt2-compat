@@ -23,6 +23,8 @@ Compile / scalacOptions ++= {
   }
 }
 
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.19" % Test
+
 // Release configuration
 publishMavenStyle := true
 licenses := Seq(License.Apache2)

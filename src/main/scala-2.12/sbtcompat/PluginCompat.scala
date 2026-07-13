@@ -13,6 +13,8 @@ package sbtcompat
 
 import java.io.File
 import java.nio.file.{ Path => NioPath }
+import java.io.{ BufferedInputStream, FileInputStream }
+import java.security.{ DigestInputStream, MessageDigest }
 import sbt._
 import xsbti.FileConverter
 
@@ -40,6 +42,31 @@ object PluginCompat {
    */
   implicit class FileRefOps(private val ref: File) extends AnyVal {
     def name(): String = ref.getName()
+    def contentHashStr: String = {
+      val md = MessageDigest.getInstance("SHA-256")
+      val BufferSize = 8192
+      val bis = new BufferedInputStream(new FileInputStream(ref))
+      try {
+        val dis = new DigestInputStream(bis, md)
+        try {
+          val buffer = new Array[Byte](BufferSize)
+          while (dis.read(buffer) >= 0) {}
+        } finally {
+          dis.close()
+        }
+      } finally {
+        bis.close()
+      }
+      s"sha256-${toHexString(md.digest)}"
+    }
+    def sizeBytes: Long = ref.length()
+    private def toHexString(bytes: Array[Byte]): String = {
+      val sb = new StringBuilder
+      for {
+        b <- bytes
+      } { sb.append(f"${b & 0xff}%02x") }
+      sb.toString
+    }
   }
 
   /** Gives sbt.Def the .uncached() method that sbt 2 has natively.
