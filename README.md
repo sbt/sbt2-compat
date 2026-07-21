@@ -140,10 +140,6 @@ import SbtCompat.{FileRef, toFile, parseModuleIDStrAttribute, ...}
 // For ambiguous names: SbtCompat.artifactStr, SbtCompat.moduleIDStr
 ```
 
-### DefOps absent on Scala 3
-
-`sbt2-compat`'s Scala 3 source does not define `DefOps` because `Def.uncached` is native on sbt 2. Do not include `DefOps` in specific imports -- it will fail on Scala 3. Wildcard imports handle this gracefully.
-
 ### sbt 2 disk cache and empty jars
 
 sbt 2.0.0-RC10 aggressively caches compilation results. When the disk cache hits, class files may not be written to the local `classes/` directory, causing `packageBin` to produce empty jars when using `publishLocal`. Workaround: invalidate the cache by making a trivial source change, or delete the `target/` directory and restart sbt.
