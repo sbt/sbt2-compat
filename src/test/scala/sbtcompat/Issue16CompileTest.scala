@@ -2,7 +2,7 @@ package sbtcompat
 
 import sbt._
 import sbt.Keys._
-import sbtcompat.PluginCompat.{DefOps, FileRef}
+import sbtcompat.PluginCompat.{ DefOps, FileRef }
 
 /** Compile-only regression test for https://github.com/sbt/sbt2-compat/issues/16.
  *
