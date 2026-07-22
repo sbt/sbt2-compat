@@ -19,6 +19,11 @@ object PluginCompat:
   type Out = VirtualFile
   type ArtifactPath = VirtualFileRef
 
+  /** Source-compatibility stub for explicit imports shared with the sbt 1 build.
+   *  Def.uncached is native on sbt 2, so no enrichment is needed here.
+   */
+  final class DefOps private ()
+
   // --- File conversions ---
 
   def toFile(a: Attributed[HashedVirtualFileRef])(using conv: FileConverter): File =
