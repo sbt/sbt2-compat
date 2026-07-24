@@ -11,7 +11,7 @@ enablePlugins(SbtPlugin)
 
 (pluginCrossBuild / sbtVersion) := {
   scalaBinaryVersion.value match {
-    case "2.12" => "1.5.8"
+    case "2.12" => "1.9.0"
     case _      => "2.0.0"
   }
 }

@@ -18,6 +18,8 @@ Add this plugin to your sbt plugin's `build.sbt` (**not** `project/plugins.sbt`)
 addSbtPlugin("com.github.sbt" % "sbt2-compat" % "<version>")
 ```
 
+The sbt 1.x build requires **sbt 1.9.0 or later**. Earlier sbt versions cannot resolve the Maven-style plugin artifacts published to Maven Central.
+
 Your plugin must be cross-built for both sbt 1 and sbt 2. The standard pattern is:
 
 ```scala
@@ -25,7 +27,7 @@ crossScalaVersions := Seq("3.8.3", "2.12.20")
 
 (pluginCrossBuild / sbtVersion) := {
   scalaBinaryVersion.value match {
-    case "2.12" => "1.5.8"
+    case "2.12" => "1.9.0"
     case _      => "2.0.0-RC13"
   }
 }
