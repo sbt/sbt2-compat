@@ -14,7 +14,7 @@ categories:
     labels:
       - 'documentation'
       - 'docs'
-change-template: '- $TITLE (#$NUMBER)'
+change-template: '- $TITLE (#$NUMBER) @$AUTHOR'
 version-resolver:
   major:
     labels:

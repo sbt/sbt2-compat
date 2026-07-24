@@ -4,7 +4,7 @@
 
 The following secrets must be configured in the GitHub repository (or organization):
 
-- `SONATYPE_USERNAME` / `SONATYPE_PASSWORD` -- Sonatype OSSRH credentials
+- `SONATYPE_USERNAME` / `SONATYPE_PASSWORD` -- Sonatype Central Portal credentials
 - `PGP_SECRET` / `PGP_PASSPHRASE` -- base64-encoded PGP key and its passphrase
 
 These are used by the `Release` GitHub Actions workflow to sign and publish artifacts.
@@ -13,22 +13,25 @@ These are used by the `Release` GitHub Actions workflow to sign and publish arti
 
 1. Ensure `main` is in the state you want to release (all PRs merged, CI green).
 
-2. Create and push a git tag with the format `vX.Y.Z`:
+2. Review all pull requests merged since the previous release. Apply the `minor`
+   label to all merged PRs that necessitate the minor version bump according to semver versioning scheme. If such a label was applied during this step, rerun the `Release Drafter` workflow in GitHub Actions.
+
+3. Create and push a git tag with the format `vX.Y.Z`:
 
        git tag v0.1.0
        git push upstream v0.1.0
 
-3. The `Release` GitHub Actions workflow triggers automatically on the tag push.
+4. The `Release` GitHub Actions workflow triggers automatically on the tag push.
    It runs `sbt ci-release` which:
    - Derives the version from the git tag (via sbt-dynver)
    - Cross-compiles for Scala 2.12 (sbt 1) and Scala 3 (sbt 2)
    - Signs artifacts with PGP
-   - Publishes to Sonatype and promotes to Maven Central
+   - Publishes through Sonatype Central Portal to Maven Central
 
-4. The workflow also publishes a GitHub Release with auto-generated notes
+5. The workflow also publishes a GitHub Release with auto-generated notes
    (assembled by release-drafter from merged PR titles).
 
-5. Artifacts typically appear on Maven Central within 10--30 minutes after
+6. Artifacts typically appear on Maven Central within 10--30 minutes after
    the workflow completes.
 
 ## Tag format
