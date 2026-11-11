@@ -26,6 +26,9 @@ object PluginCompat:
 
   // --- File conversions ---
 
+  def withWritableFiles[A](files: Seq[File])(action: Seq[File] => A): A =
+    WritableFiles.withWritableFiles(files)(action)
+
   def toFile(a: Attributed[HashedVirtualFileRef])(using conv: FileConverter): File =
     conv.toPath(a.data).toFile()
   def toFile(ref: HashedVirtualFileRef)(using conv: FileConverter): File =

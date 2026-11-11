@@ -76,6 +76,23 @@ implicit val conv: xsbti.FileConverter = fileConverter.value
 
 This works on both Scala 2.12 (`implicit`) and Scala 3 (`using`) because `implicit val` is compatible with both resolution mechanisms.
 
+### Writable files
+
+Use `withWritableFiles` before modifying files that may have been restored from sbt's cache:
+
+```scala
+val classFiles: Seq[File] = (classDirectory.value ** "*.class").get()
+withWritableFiles(classFiles) { files =>
+  files.foreach(enhanceClassFile)
+}
+```
+
+The caller selects the files. The helper replaces symbolic links with independent writable copies at the same paths,
+makes read-only regular files writable, and leaves writable regular files unchanged. It prepares every file before
+calling the action with the supplied sequence and returns the action's result. Missing files, directories, dangling
+links, and files that cannot be made writable fail before the action runs. Preparation persists if the action fails;
+this helper does not roll back changes or manage task caching.
+
 ### Def.uncached
 
 In sbt 2, all tasks are cached by default; `Def.uncached(value)` opts out. In sbt 1, there is no caching. The compat layer provides an implicit enrichment on sbt 1 (`Def.uncached` as a no-op) and relies on the native method on sbt 2:

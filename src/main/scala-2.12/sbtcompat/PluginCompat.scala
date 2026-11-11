@@ -93,6 +93,9 @@ object PluginCompat {
   // File conversions (identity on sbt 1, real work on sbt 2)
   // ============================================================
 
+  def withWritableFiles[A](files: Seq[File])(action: Seq[File] => A): A =
+    WritableFiles.withWritableFiles(files)(action)
+
   def toFile(a: Attributed[File])(implicit conv: FileConverter): File =
     a.data
   def toFile(ref: File)(implicit conv: FileConverter): File =
